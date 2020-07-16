@@ -142,7 +142,6 @@ class LinkedList {
         prevNode = currNode;
         currNode = currNode.next;
       }
-      console.log(i, '-', currNode);
     }
 
     // currNode = item before the new item
@@ -168,8 +167,88 @@ function main() {
   SLL.remove('Tauhida');
 
   // Apollo, Athena, Kat, Boomer, Helo, Hotdog, Husker, Starbuck
+  // console.log(SLL.find('Husker'));
 
-  console.log(SLL.find('Husker'));
+  console.log(findPrevious('Boomer', SLL));
+  console.log(findPrevious('something', new LinkedList));
+}
+
+function display(linkedList) {
+  let list = [];
+  // Start at the head
+  let currNode = linkedList.head;
+  // Run through all items
+  while (currNode !== null) {
+    list.push(currNode.value);
+    currNode = currNode.next;
+  }
+  // Return the list
+  return list;
+}
+
+function size(linkedList) {
+  let counter = 0;
+  // Start at the head
+  let currNode = linkedList.head;
+  // If the list is empty
+  if (!linkedList.head) {
+    return counter;
+  }
+  // Run through all items
+  while (currNode !== null) {
+    counter += 1
+    currNode = currNode.next;
+  }
+  // Return the list
+  return counter;
+}
+
+function isEmpty(linkedList) {
+  // If the list is empty
+  if (!linkedList.head) {
+    return true;
+  }
+  return false;
+}
+
+function findPrevious(item, linkedList) {
+  // Start at the head
+  let currNode = linkedList.head;
+  let prevNode;
+  // If the list is empty
+  if (!linkedList.head) {
+    return null;
+  }
+  // Check for the item
+  while (currNode.value !== item) {
+    /* Return null if it's the end of the list
+      and the item is not on the list */
+    if (currNode.next === null) {
+      return null;
+    }
+    else {
+      // Otherwise, keep looking
+      prevNode = currNode;
+      currNode = currNode.next;
+    }
+  }
+  // Found it
+  return prevNode;
+}
+
+function findLast(linkedList) {
+  // Start at the head
+  let currNode = linkedList.head;
+  // If the list is empty
+  if (!linkedList.head) {
+    return null;
+  }
+  // Run through all items
+  while (currNode.next !== null) {
+    currNode = currNode.next;
+  }
+  // Return the last node
+  return currNode;
 }
 
 main();
