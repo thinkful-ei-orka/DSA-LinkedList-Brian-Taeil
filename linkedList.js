@@ -344,8 +344,8 @@ function main() {
   // console.log(SLL.find('Husker'));
   // console.log(findPrevious('Boomer', SLL));
   // console.log(cycle(SLL));
-
-  console.log(display(DLL));
+  // console.log(display(DLL));
+  // console.log(display(reverseDouble(DLL)));
 }
 
 main();
@@ -445,7 +445,6 @@ function WhatDoesThisProgramDo(lst) {
 }
 // ^^ Takes out duplicates ^^
 
-
 function reverse(linkedList) {
   // Start at the head
   let currNode = linkedList.head;
@@ -469,6 +468,40 @@ function reverse(linkedList) {
     }
   }
   linkedList.head = prevNode;
+
+  // Return the list
+  return linkedList;
+}
+
+function reverseDouble(linkedList) {
+  // If the list is empty
+  if (!linkedList.head) {
+    return null;
+  }
+
+  // Start at the head
+  let currNode = linkedList.head;
+
+  // Set the new heads and tails
+  let newHead = linkedList.tail;
+  let newTail = linkedList.head;
+  linkedList.head = newHead;
+  linkedList.tail = newTail;
+
+  // Run through all items
+  while (currNode !== null) {
+    let currPrev = currNode.prev;
+    let currNext = currNode.next;
+
+    if (currPrev !== undefined) {
+      currNode.next = currPrev;
+    }
+    if (currNext !== undefined) {
+      currNode.prev = currNext;
+    }
+
+    currNode = currNext;
+  }
 
   // Return the list
   return linkedList;
