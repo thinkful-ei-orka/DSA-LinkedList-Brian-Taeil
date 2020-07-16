@@ -72,6 +72,83 @@ class LinkedList {
     }
     previousNode.next = currNode.next;
   }
+  insertBefore(newItem, existingItem) {
+    // Start at the head
+    let currNode = this.head;
+    let prevNode;
+    // If the list is empty
+    if (!this.head) {
+      return null;
+    }
+    // Check for the item
+    while (currNode.value !== existingItem) {
+      /* Return null if it's the end of the list
+        and the item is not on the list */
+      if (currNode.next === null) {
+        return null;
+      }
+      else {
+        // Otherwise, keep looking
+        prevNode = currNode;
+        currNode = currNode.next;
+      }
+    }
+    let newNode = new _Node(newItem, currNode);
+    prevNode.next = newNode;
+  }
+  insertAfter(newItem, existingItem) {
+    // Start at the head
+    let currNode = this.head;
+    let nextNode;
+    // If the list is empty
+    if (!this.head) {
+      return null;
+    }
+    // Check for the item
+    while (currNode.value !== existingItem) {
+      /* Return null if it's the end of the list
+        and the item is not on the list */
+      if (currNode.next === null) {
+        return null;
+      }
+      else {
+        // Otherwise, keep looking
+        currNode = currNode.next;
+      }
+    }
+    // The existing item is the last item
+    if (currNode.next === null) {
+      this.insertLast(newItem);
+    } else {
+      let newNode = new _Node(newItem, currNode.next);
+      currNode.next = newNode;
+    }
+  }
+  insertAt(newItem, position) {
+    // Start at the head
+    let currNode = this.head;
+    let prevNode;
+    // If the list is empty
+    if (!this.head) {
+      return null;
+    }
+    // Check for the item
+    for (let i = 1; i < position; i++) {
+      if (currNode.next === null) {
+        return null;
+      }
+      else {
+        // Otherwise, keep looking
+        prevNode = currNode;
+        currNode = currNode.next;
+      }
+      console.log(i, '-', currNode);
+    }
+
+    // currNode = item before the new item
+    let newNode = new _Node(newItem, currNode);
+    prevNode.next = newNode;
+  }
 }
 
 function main() {
@@ -82,8 +159,17 @@ function main() {
   SLL.insertLast('Helo');
   SLL.insertLast('Husker');
   SLL.insertLast('Starbuck');
+  SLL.insertLast('Tauhida');
+  SLL.remove('squirrel');
 
-  console.log(SLL.find('Boomer'));
+  SLL.insertBefore('Athena', 'Boomer');
+  SLL.insertAfter('Hotdog', 'Helo');
+  SLL.insertAt('Kat', 3);
+  SLL.remove('Tauhida');
+
+  // Apollo, Athena, Kat, Boomer, Helo, Hotdog, Husker, Starbuck
+
+  console.log(SLL.find('Husker'));
 }
 
 main();
