@@ -99,7 +99,6 @@ class LinkedList {
   insertAfter(newItem, existingItem) {
     // Start at the head
     let currNode = this.head;
-    let nextNode;
     // If the list is empty
     if (!this.head) {
       return null;
@@ -168,10 +167,14 @@ function main() {
 
   // Apollo, Athena, Kat, Boomer, Helo, Hotdog, Husker, Starbuck
   // console.log(SLL.find('Husker'));
+  // console.log(findPrevious('Boomer', SLL));
 
-  console.log(findPrevious('Boomer', SLL));
-  console.log(findPrevious('something', new LinkedList));
+  console.log('original sll', display(SLL));
+  reverse(SLL);
+  console.log('reversed sll', display(SLL));
 }
+
+main();
 
 function display(linkedList) {
   let list = [];
@@ -196,7 +199,7 @@ function size(linkedList) {
   }
   // Run through all items
   while (currNode !== null) {
-    counter += 1
+    counter += 1;
     currNode = currNode.next;
   }
   // Return the list
@@ -251,4 +254,46 @@ function findLast(linkedList) {
   return currNode;
 }
 
-main();
+function WhatDoesThisProgramDo(lst) {
+  let current = lst.head;
+  while (current !== null) {
+    let newNode = current;
+    while (newNode.next !== null) {
+      if (newNode.next.value === current.value) {
+        newNode.next = newNode.next.next;
+      }
+      else {
+        newNode = newNode.next;
+      }
+    }
+    current = current.next;
+  }
+}
+
+function reverse(linkedList) {
+  // Start at the head
+  let currNode = linkedList.head;
+  let prevPrevNode;
+  let prevNode;
+  // If the list is empty
+  if (!linkedList.head) {
+    return null;
+  }
+  // Run through all items
+  while (currNode !== null) {
+    prevPrevNode = prevNode;
+    prevNode = currNode;
+    currNode = currNode.next;
+
+    if (prevPrevNode === undefined) {
+      // if it's the first item, set the first item's next to null
+      prevNode.next = null;
+    } else {
+      prevNode.next = prevPrevNode;
+    }
+  }
+  linkedList.head = prevNode;
+
+  // Return the list
+  return linkedList;
+}
