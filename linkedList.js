@@ -164,14 +164,12 @@ function main() {
   SLL.insertAfter('Hotdog', 'Helo');
   SLL.insertAt('Kat', 3);
   SLL.remove('Tauhida');
-
+  SLL.find('Starbuck').next = SLL.find('Boomer')
   // Apollo, Athena, Kat, Boomer, Helo, Hotdog, Husker, Starbuck
   // console.log(SLL.find('Husker'));
   // console.log(findPrevious('Boomer', SLL));
 
-  console.log('original sll', display(SLL));
-  reverse(SLL);
-  console.log('reversed sll', display(SLL));
+  console.log(cycle(SLL));
 }
 
 main();
@@ -269,6 +267,8 @@ function WhatDoesThisProgramDo(lst) {
     current = current.next;
   }
 }
+// ^^ Takes out duplicates ^^
+
 
 function reverse(linkedList) {
   // Start at the head
@@ -296,4 +296,66 @@ function reverse(linkedList) {
 
   // Return the list
   return linkedList;
+}
+
+function third (lst){
+  // Start at the head
+  let currNode = lst.head;
+
+  // If the list is empty
+  if (!lst.head) {
+    return null;
+  }
+  // Run through all items
+  while (currNode.next.next.next !== null) {
+    currNode = currNode.next;
+  }
+   // Return the list
+  return currNode;
+}
+
+function middle (lst) {
+  let counter = 0;
+  // Start at the head
+  let currNode = lst.head;
+  let halfNode = currNode;
+  // If the list is empty
+  if (!lst.head) {
+    return null;
+  }
+  // Run through all items
+  while (currNode !== null) {
+    if (counter % 2 === 1){
+      halfNode = halfNode.next;
+    }
+    counter += 1;
+    currNode = currNode.next;
+  }
+  // Return the list
+  return halfNode;
+}
+
+function cycle (lst){
+  // Start at the head
+  let currNode = lst.head;
+  let seenArray = [];
+  // If the list is empty
+  if (!lst.head) {
+    return null;
+  }
+  // Run through all items
+  while (currNode !== null) {
+    seenArray.push(currNode);
+    for (let i = 0; i < seenArray.length; i++){
+      if (currNode.next === seenArray[i]){
+        return true;
+      } else {
+        
+        
+      }
+      currNode = currNode.next;
+    }
+  }
+   // Return the list
+  return false;
 }
